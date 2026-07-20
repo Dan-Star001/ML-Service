@@ -55,14 +55,27 @@ def predict_risk(data: ClinicalData):
         # Process data using the pre-trained scaler
         scaled_features = scaler.transform(raw_features)
 
-        # Generate risk probability using Gaussian Naive Bayes (index 1 is class 1: Neuropathy)
-        risk_probability = gnb_model.predict_proba(scaled_features)[0][1]
-        risk_score = float(risk_probability * 100)
+        # --- Individual Model Predictions ---
+        # GNB: Gaussian Naive Bayes (index 1 = class 1: Neuropathy)
+        gnb_prob = float(gnb_model.predict_proba(scaled_features)[0][1])
+        gnb_risk_score = gnb_prob * 100
+
+        # KNN: K-Nearest Neighbors (index 1 = class 1: Neuropathy)
+        knn_prob = float(knn_model.predict_proba(scaled_features)[0][1])
+        knn_risk_score = knn_prob * 100
+
+        # --- Fusion: Weighted Average (equal weights) ---
+        fusion_prob = 0.5 * knn_prob + 0.5 * gnb_prob
+        fusion_risk_score = fusion_prob * 100
 
         return {
             "status": "success",
-            "risk_score": round(risk_score, 2),
-            "probability": round(float(risk_probability), 4)
+            "knn_score": round(knn_risk_score, 2),
+            "knn_probability": round(knn_prob, 4),
+            "gnb_score": round(gnb_risk_score, 2),
+            "gnb_probability": round(gnb_prob, 4),
+            "risk_score": round(fusion_risk_score, 2),
+            "probability": round(fusion_prob, 4),
         }
 
     except Exception as e:
