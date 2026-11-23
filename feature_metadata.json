@@ -1,0 +1,82 @@
+{
+    "target": "NEU",
+    "features": [
+        "AGE",
+        "SEX",
+        "BMI",
+        "SP",
+        "BP",
+        "HbA1c",
+        "FPS",
+        "PPS",
+        "FAMILY H/O",
+        "SMOKING",
+        "ONSET AGE",
+        "Diabetes_Duration"
+    ],
+    "base_features": [
+        "AGE",
+        "SEX",
+        "BMI",
+        "SP",
+        "BP",
+        "HbA1c",
+        "FPS",
+        "PPS",
+        "FAMILY H/O",
+        "SMOKING",
+        "ONSET AGE"
+    ],
+    "numeric_features": [
+        "AGE",
+        "BMI",
+        "SP",
+        "BP",
+        "HbA1c",
+        "FPS",
+        "PPS",
+        "ONSET AGE",
+        "Diabetes_Duration"
+    ],
+    "categorical_features": [
+        "SEX",
+        "FAMILY H/O",
+        "SMOKING"
+    ],
+    "engineered_features": [
+        "Diabetes_Duration"
+    ],
+    "excluded_outcome_variables": [
+        "NEP",
+        "RET",
+        "CV",
+        "PER VAS"
+    ],
+    "invalid_negative_features": [
+        "AGE",
+        "BMI",
+        "SP",
+        "BP",
+        "HbA1c",
+        "FPS",
+        "PPS",
+        "ONSET AGE",
+        "Diabetes_Duration"
+    ],
+    "outlier_method": "IQR analysis for reporting only",
+    "outlier_removal": false,
+    "winsorization": false,
+    "clipping": false,
+    "imputation": "Median",
+    "scaling": "RobustScaler",
+    "cv": "RepeatedStratifiedKFold",
+    "cv_splits": 5,
+    "cv_repeats": 5,
+    "knn_search": "Odd k values from 3 to 31",
+    "best_knn_k": 23,
+    "holdout_fraction": 0.1,
+    "random_state": 42,
+    "threshold_method": "Youden's J",
+    "final_threshold": 0.5,
+    "fusion_method": "AUC-weighted soft voting"
+}
